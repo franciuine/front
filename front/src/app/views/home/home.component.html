@@ -1,1 +1,12 @@
-<p>home works!</p>
+<mat-toolbar color="gray">
+    <mat-toolbar-row>
+      <span>Repositório Desplugado</span>
+      <mat-icon class="icon-spacer">laptop</mat-icon>
+      <span class="spacer"></span>
+      <button mat-raised-button (click) = "newActivity()">
+        Nova atividade
+        <mat-icon>add</mat-icon>
+      </button>
+    </mat-toolbar-row>
+</mat-toolbar>
+<app-activity-list></app-activity-list>
