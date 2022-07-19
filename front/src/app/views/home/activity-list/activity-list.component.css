@@ -1,11 +1,29 @@
 table {
-    width: 100%;
+    width: 97%;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 .mat-icon {
     padding-left: 40%;
+    color:rgb(66, 66, 66);
 }
 
 .center {
     text-align: center;
+}
+
+.mat-paginator {
+    margin-right: 5px;
+    margin-left: 710px;
+}
+
+.mat-form-field {
+    margin-left: 20px;
+}
+
+.inline-content {
+    margin-top: 5px;
+    display: inline-flex;
 }

@@ -1,1 +1,64 @@
-<p>activity-modal works!</p>
+<h1 mat-dialog-title>Nova Atividade</h1>
+<div mat-dialog-content>
+    <form class="example-form" [formGroup]="activityForm">
+        <!-- NOME DA ATIVIDADE -->
+        <div class="row">
+            <mat-form-field class="full-width">
+                <mat-label>Nome:</mat-label>
+                <input matInput placeholder="Nome da atividade" formControlName="name" name="name">
+                <mat-error *ngIf="!this.activityForm.valid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>           
+        </div>
+        <!-- DESCRIÇÃO DA ATIVIDADE -->
+        <div class="row">
+            <mat-form-field class="full-width">
+                <mat-label>Descrição:</mat-label>
+                <input matInput placeholder="Breve descrição da atividade" formControlName="description" name="description">
+            </mat-form-field>
+        </div>
+        <!-- NÍVEL DE ENSINO E COMPONENTE CURRICULAR -->
+        <div class="row">
+            <mat-form-field class="adjust-width">
+                <mat-label>Nível de Ensino:</mat-label>
+                <mat-select (ngModelChange)="handleComponents()" formControlName="level" name="level">
+                    <mat-option *ngFor="let level of levels" [value]="level.levelId">
+                        {{level.name}}
+                    </mat-option>
+                    <mat-error *ngIf="!this.activityForm.valid">{{getErrorMessage()}}</mat-error>
+                </mat-select>
+            </mat-form-field>
+            &nbsp;&nbsp;
+            <mat-form-field class="adjust-width">
+                <mat-label>Componente Curricular:</mat-label>
+                <mat-select multiple formControlName="component" name="component">
+                    <mat-option *ngFor="let component of components" [value]="component.value">
+                        {{component.name}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="!this.activityForm.valid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field class="full-width">
+                <mat-label>Pilar:</mat-label>
+                <mat-select formControlName="pillar" name="pillar">
+                    <mat-option *ngFor="let pillar of pillars" [value]="pillar.value">
+                        {{pillar.name}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="!this.activityForm.valid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field class="full-width">
+                <mat-label>Desenvolvimento:</mat-label>
+                <textarea rows=5 matInput formControlName="tutorial" name="tutorial"></textarea>
+                <mat-error *ngIf="!this.activityForm.valid">{{getErrorMessage()}}</mat-error>
+              </mat-form-field>
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="cancel()">Cancelar</button>
+    <button mat-raised-button color="primary" (click)="create()">Adicionar</button>
+</div>

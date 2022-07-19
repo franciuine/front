@@ -12,6 +12,12 @@ import { ActivityListComponent } from './views/home/activity-list/activity-list.
 import { ActivityModalComponent } from './views/home/activity-modal/activity-modal.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
+import { HttpClientModule } from '@angular/common/http';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -28,7 +34,14 @@ import { MatTableModule } from '@angular/material/table';
     MatButtonModule,
     MatTabsModule,
     MatTableModule,
-    BrowserAnimationsModule
+    MatDialogModule,
+    MatInputModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

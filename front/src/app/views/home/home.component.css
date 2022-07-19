@@ -5,3 +5,7 @@
 .icon-spacer {
     margin-left: 10px;
 }
+
+.adjust-color, .mat-icon {
+    color: rgb(66, 66, 66);
+}
