@@ -8,7 +8,7 @@ export class LessonPlan {
     pillar: string;
     component: string;
     level: EducationLevel;
-    user: User;
+    author: User;
     enabled: boolean = false;
     tutorial: string;
 }

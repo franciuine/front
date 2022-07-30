@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LessonPlan } from '../model/LessonPlan';
-import { ResponsePageable } from '../model/ResponsePageable';
+import { EducationLevel } from '../model/EducationLevel';
+import { Wrapper } from '../model/Wrapper';
 
 @Injectable({ providedIn: 'root' })
 export class LessonPlanService {

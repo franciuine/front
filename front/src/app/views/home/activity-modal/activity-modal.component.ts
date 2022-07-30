@@ -5,11 +5,9 @@ import { EducationLevel } from 'src/app/shared/model/EducationLevel';
 import { LessonPlan } from 'src/app/shared/model/LessonPlan';
 import { EducationLevelService } from 'src/app/shared/service/EducationLevel.service';
 import { LessonPlanService } from 'src/app/shared/service/LessonPlan.service';
-
-interface Components {
-  value: number;
-  name: string;
-}
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserService } from 'src/app/shared/service/User.service';
+import { Lifecycle } from 'src/app/lifecycle';
 
 interface Pillar {
   value: number;
@@ -21,7 +19,7 @@ interface Pillar {
   templateUrl: './activity-modal.component.html',
   styleUrls: ['./activity-modal.component.css']
 })
-export class ActivityModalComponent implements OnInit {
+export class ActivityModalComponent extends Lifecycle {
 
   componentList: string[];
   activityForm: FormGroup;
@@ -40,8 +38,11 @@ export class ActivityModalComponent implements OnInit {
   constructor(private dialogRef: MatDialogRef<ActivityModalComponent>,
     private fb: FormBuilder,
     private lessonPlanService: LessonPlanService,
-    private educationLevelService: EducationLevelService) {
+    private educationLevelService: EducationLevelService,
+    private _snackBar: MatSnackBar,
+    private userService: UserService) {
 
+    super();
     this.educationLevelService.getAll().subscribe(data => {
       this.levels = data;
     });
@@ -69,7 +70,29 @@ export class ActivityModalComponent implements OnInit {
   }
 
   create() {
-    if (this.activityForm.valid) {
+    try {
+      if (this.activityForm.valid) {
+        this.lessonPlan = new LessonPlan();
+        this.lessonPlan = this.activityForm.value;
+        this.lessonPlan.enabled = false;
+        this.lessonPlan.pillar = this.activityForm.value.pillar.name;
+        this.lessonPlan.component = this.lessonPlan.component.toString().replace(",", ", ");
+        this.educationLevelService.getById(this.activityForm.get('level')?.value).subscribe(data => {
+          this.lessonPlan.level = data;
+          this.userService.getById(1).subscribe(data => {
+            this.lessonPlan.author = data;
+            console.log(this.lessonPlan);
+            let sub = this.lessonPlanService.postLesson(this.lessonPlan).subscribe(() => {
+              this.dialogRef.close(true);
+              this._snackBar.open("Atividade cadastrada com sucesso!", "OK");
+            });
+            this.addSubscriptions([sub]);
+          });
+
+        });
+      }
+    } catch (ex) {
+      console.log(ex);
     }
   }
 
@@ -86,7 +109,7 @@ export class ActivityModalComponent implements OnInit {
   }
 
   resetComponents() {
-    for(let i = 0; i < this.components.length; i++) {
+    for (let i = 0; i < this.components.length; i++) {
       this.components.splice(i);
     }
   }

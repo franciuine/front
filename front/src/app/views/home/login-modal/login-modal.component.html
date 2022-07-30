@@ -1,0 +1,27 @@
+<h1 mat-dialog-title>Login</h1>
+<div mat-dialog-content>
+    <form class="example-form" [formGroup]="loginForm">
+        <div class="row">
+            <mat-form-field class="full-width">
+                <mat-label>Nome de usuário:</mat-label>
+                <input matInput placeholder="Nome de usuário" formControlName="login" name="login">
+                <mat-error *ngIf="!this.loginForm.valid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field class="full-width">
+                <mat-label>Senha:</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" placeholder="Senha" formControlName="password" name="password">
+                <mat-error *ngIf="!this.loginForm.valid">{{getErrorMessage()}}</mat-error>
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field>
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="register()">Quero me cadastrar</button>
+    <button mat-button (click)="cancel()">Cancelar</button>
+    <button mat-raised-button color="primary" (click)="login()">Login</button>
+</div>

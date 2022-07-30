@@ -1,11 +1,10 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { LessonPlan } from 'src/app/shared/model/LessonPlan';
 import { jsPDF } from "jspdf";
 import { LessonPlanService } from 'src/app/shared/service/LessonPlan.service';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort, Sort } from '@angular/material/sort';
-import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-activity-list',
@@ -13,7 +12,7 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
   styleUrls: ['./activity-list.component.css']
 })
 
-export class ActivityListComponent implements AfterViewInit {
+export class ActivityListComponent implements OnInit {
 
   plans: LessonPlan[];
   doc = new jsPDF;
@@ -23,19 +22,25 @@ export class ActivityListComponent implements AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private lessonPlanService: LessonPlanService,
-              private _liveAnnouncer: LiveAnnouncer) {
+  constructor(private lessonPlanService: LessonPlanService) {
 
     this.lessonPlanService.getAll().subscribe(data => {
+      console.log(data);
       this.plans = data;
       this.dataSource = new MatTableDataSource<LessonPlan>(this.plans);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
+      this.dataSource.sortingDataAccessor = (item, property) => {
+        switch (property) {
+          case 'name': return item.level.name;
+          default: return item.id;
+        }
+      };
     });
 
   }
 
-  ngAfterViewInit() {
+  ngOnInit() {
   }
 
   downloadPlan(row: any) {
@@ -82,14 +87,6 @@ export class ActivityListComponent implements AfterViewInit {
 
   filterTable(input: Event) {
     this.dataSource.filter = (input.target as HTMLInputElement).value.trim().toLowerCase();
-  }
-
-  announceSortChange(sortState: Sort) {
-    if (sortState.direction) {
-      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
-    } else {
-      this._liveAnnouncer.announce('Sorting cleared');
-    }
   }
 
 }

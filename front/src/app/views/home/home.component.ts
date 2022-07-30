@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivityModalComponent } from './activity-modal/activity-modal.component';
+import { LoginModalComponent } from './login-modal/login-modal.component';
 
 @Component({
   selector: 'app-home',
@@ -23,6 +24,12 @@ export class HomeComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+    });
+  }
+
+  login() {
+    const dialogRef = this.dialog.open( LoginModalComponent, {
+      minWidth: '350px'
     });
   }
 

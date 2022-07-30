@@ -1,0 +1,44 @@
+<h1 mat-dialog-title>Cadastrar</h1>
+<div mat-dialog-content>
+    <form class="example-form" [formGroup]="registerForm">
+        <div class="row">
+            <mat-form-field class="full-width">
+                <mat-label>Nome:</mat-label>
+                <input matInput placeholder="Nome" formControlName="name" name="name">
+                <mat-error *ngIf="!this.registerForm.valid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field class="full-width">
+                <mat-label>Nome de usuário:</mat-label>
+                <input matInput placeholder="Nome de usuário" formControlName="login" name="login">
+                <mat-error *ngIf="!this.registerForm.valid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field class="full-width">
+                <mat-label>Senha:</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" placeholder="Senha" formControlName="password" name="password">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="!this.registerForm.valid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field class="full-width">
+                <mat-label>Confirmar senha:</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" placeholder="Confirmação de senha" formControlName="confirmPassword" name="confirmPassword">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="!this.registerForm.valid">{{getErrorMessage()}}</mat-error>
+                <span class='password-error' *ngIf="comparePasswords()">As senhas não conferem.</span>
+            </mat-form-field>
+        </div>
+    </form>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="cancel()">Cancelar</button>
+    <button mat-raised-button color="primary" (click)="createUser()">Cadastrar</button>
+</div>

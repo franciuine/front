@@ -9,3 +9,7 @@
 .adjust-color, .mat-icon {
     color: rgb(66, 66, 66);
 }
+
+.adjust-space {
+    margin-right: 10px;
+}

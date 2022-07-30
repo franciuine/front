@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './views/home/home.component';
@@ -18,13 +17,19 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { HttpClientModule } from '@angular/common/http';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { LoginModalComponent } from './views/home/login-modal/login-modal.component';
+import { UserFormModalComponent } from './views/home/user-form-modal/user-form-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     ActivityListComponent,
-    ActivityModalComponent
+    ActivityModalComponent,
+    LoginModalComponent,
+    UserFormModalComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +46,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatSelectModule,
     ReactiveFormsModule,
     HttpClientModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSortModule, 
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

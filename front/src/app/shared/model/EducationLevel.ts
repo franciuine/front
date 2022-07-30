@@ -1,6 +1,6 @@
 
 export class EducationLevel {
-    levelId: number;
+    id: number;
     name: string;
     components: string;
 }
