@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { UserService } from 'src/app/shared/service/User.service';
 import { ActivityModalComponent } from './activity-modal/activity-modal.component';
 import { LoginModalComponent } from './login-modal/login-modal.component';
 
@@ -11,7 +12,6 @@ import { LoginModalComponent } from './login-modal/login-modal.component';
 export class HomeComponent implements OnInit {
 
   constructor(private dialog: MatDialog) { 
-   
   }
 
   ngOnInit(): void {

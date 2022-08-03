@@ -29,4 +29,11 @@ export class UserService {
         return this.httpClient.post<any>(this.apiUrl, user, this.httpOptions);
     }
 
+    public login() {
+        let username='admin'
+        let password='admin'
+        const headers = new HttpHeaders({ Authorization: 'Basic ' + btoa(username + ':' + password) });
+        return this.httpClient.get("http://localhost:8080/login",{headers});
+    }
+
 }
