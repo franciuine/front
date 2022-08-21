@@ -1,0 +1,8 @@
+.justify-content {
+    text-align: justify;
+    line-height: 2;
+}
+
+.adjust-line {
+    display: inline-flex;
+}

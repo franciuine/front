@@ -7,8 +7,12 @@ export class LessonPlan {
     description: string;
     pillar: string;
     component: string;
-    level: EducationLevel;
-    author: User;
+    educationLevel: string;
+    author: string;
     enabled: boolean = false;
     tutorial: string;
+    hability: string;
+    teacherLevel: string;
+    evaluation: string;
+    pdfName: string;
 }

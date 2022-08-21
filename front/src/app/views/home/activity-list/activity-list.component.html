@@ -1,18 +1,17 @@
 <mat-tab-group backgroundColor="primary">
     <mat-tab label="Todas as atividades">
-        <div> 
+        <div>
             <div class="inline-content">
-                <mat-form-field >
-                    <button matSuffix mat-icon-button disabled=true><mat-icon>search</mat-icon></button>
+                <mat-form-field>
+                    <button matSuffix mat-icon-button disabled=true>
+                        <mat-icon>search</mat-icon>
+                    </button>
                     <input (keyup)="filterTable($event)" matInput placeholder="Buscar...">
                 </mat-form-field>
-                <mat-paginator 
-                    [pageSizeOptions]="[5, 10, 20]" 
-                    showFirstLastButtons 
-                    aria-label="Selecionar página">
+                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Selecionar página">
                 </mat-paginator>
-            </div>      
-            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>               
+            </div>
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
                 <ng-container matColumnDef="name">
                     <th mat-header-cell *matHeaderCellDef> NOME </th>
                     <td mat-cell *matCellDef="let element"> {{element.name}} </td>
@@ -25,7 +24,7 @@
 
                 <ng-container matColumnDef="level">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> NÍVEL DE ENSINO </th>
-                    <td mat-cell *matCellDef="let element"> {{element.educationLevel.name}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.educationLevel}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="component">
@@ -41,7 +40,7 @@
                 <ng-container matColumnDef="actions">
                     <th mat-header-cell class="center" *matHeaderCellDef> DOWNLOAD </th>
                     <td mat-cell *matCellDef="let row">
-                        <mat-icon (click)="downloadPlan(row)">download</mat-icon>
+                        <mat-icon class="align-action" (click)="downloadPlan(row)">download</mat-icon>
                     </td>
                 </ng-container>
 
@@ -51,6 +50,65 @@
         </div>
 
     </mat-tab>
-    <mat-tab label="Minhas atividades">
-    </mat-tab>
+    <div *ngIf="hasLoggedUser">
+        <mat-tab label="Minhas atividades">
+            <div *ngIf="userHasPlans">
+                <div>
+                    <div class="inline-content">
+                        <mat-form-field>
+                            <button matSuffix mat-icon-button disabled=true>
+                                <mat-icon>search</mat-icon>
+                            </button>
+                            <input (keyup)="filterTable($event)" matInput placeholder="Buscar...">
+                        </mat-form-field>
+                        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+                            aria-label="Selecionar página">
+                        </mat-paginator>
+                    </div>
+
+                    <table mat-table [dataSource]="userDataSource" class="mat-elevation-z8" matSort>
+                        <ng-container matColumnDef="name">
+                            <th mat-header-cell *matHeaderCellDef> NOME </th>
+                            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="description">
+                            <th mat-header-cell *matHeaderCellDef> DESCRIÇÃO </th>
+                            <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="level">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> NÍVEL DE ENSINO </th>
+                            <td mat-cell *matCellDef="let element"> {{element.educationLevel}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="component">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> COMPONENTE CURRICULAR </th>
+                            <td mat-cell *matCellDef="let element"> {{element.component}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="pillar">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> PILAR </th>
+                            <td mat-cell *matCellDef="let element"> {{element.pillar}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="actions">
+                            <th mat-header-cell class="center" *matHeaderCellDef> AÇÕES </th>
+                            <td mat-cell class="center" *matCellDef="let row">
+                                <mat-icon (click)="downloadPlan(row)">download</mat-icon>
+                                <mat-icon (click)="editPlan(row)">edit</mat-icon>
+                                <mat-icon (click)="deletePlan(row)">delete</mat-icon>
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                </div>
+            </div>
+            <div *ngIf="!userHasPlans">
+                <br><br><a class="format-text">Cadastre novas atividades para vê-las aqui.</a>
+            </div>
+        </mat-tab>
+    </div>
 </mat-tab-group>

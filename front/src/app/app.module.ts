@@ -21,6 +21,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { LoginModalComponent } from './views/home/login-modal/login-modal.component';
 import { UserFormModalComponent } from './views/home/user-form-modal/user-form-modal.component';
+import { DeleteModalComponent } from './views/home/delete-modal/delete-modal.component';
+import { AboutModalComponent } from './views/home/about-modal/about-modal.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { UserFormModalComponent } from './views/home/user-form-modal/user-form-m
     ActivityListComponent,
     ActivityModalComponent,
     LoginModalComponent,
-    UserFormModalComponent
+    UserFormModalComponent,
+    DeleteModalComponent,
+    AboutModalComponent
   ],
   imports: [
     BrowserModule,

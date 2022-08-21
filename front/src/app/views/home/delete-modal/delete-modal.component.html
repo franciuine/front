@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>Atenção!</h1>
+<div mat-dialog-content class="format-text">
+    Esta ação irá excluir a atividade "{{plan.name}}". 
+    <br>Deseja continuar?
+    <br>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="cancel()">Cancelar</button>
+    <button mat-raised-button color="primary" (click)="deleteActivity()">Confirmar</button>
+</div>

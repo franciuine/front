@@ -2,38 +2,48 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../model/User';
+import { baseURL } from './Global';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
 
-    apiUrl = 'http://localhost:8080/v1/users';
-    httpOptions = {
-        headers: new HttpHeaders({
-            'Content-Type': 'application/json'
-        })
-    };
+    apiUrl = baseURL + "/user";
 
+    
     constructor(
         private httpClient: HttpClient
     ) { }
 
     public getAll(): Observable<any> {
-        return this.httpClient.get(this.apiUrl);
+        return this.httpClient.get(this.apiUrl + "/all");
     }
 
     public getById(id: number): Observable<any> {
         return this.httpClient.get(this.apiUrl + "/" + id);
     }
 
-    public save(user: User): Observable<any> {
-        return this.httpClient.post<any>(this.apiUrl, user, this.httpOptions);
+    public findByUsername(username: string): Observable<any>{
+        return this.httpClient.get(this.apiUrl + "/get/user/" + username);
     }
 
-    public login() {
-        let username='admin'
-        let password='admin'
-        const headers = new HttpHeaders({ Authorization: 'Basic ' + btoa(username + ':' + password) });
-        return this.httpClient.get("http://localhost:8080/login",{headers});
+    public save(user: User): Observable<any> {
+        console.log(user);
+        return this.httpClient.post<any>(this.apiUrl + "/save", user);
+    }
+
+
+    public loggedUser(token: string) {
+        return this.httpClient.get(this.apiUrl + "/currentuser", {responseType:'text' ,headers: {Authorization: 'Bearer ' + token} 
+        });
+    }
+
+
+    public login(username:string, password: string) {
+        return this.httpClient.post(baseURL + "/login", {username: username, password: password}, {responseType: 'text'});
+    }
+
+    public logout() {
+        return this.httpClient.get(baseURL + "/logout");
     }
 
 }

@@ -6,7 +6,6 @@ table {
 }
 
 .mat-icon {
-    padding-left: 40%;
     color:rgb(66, 66, 66);
 }
 
@@ -26,4 +25,14 @@ table {
 .inline-content {
     margin-top: 5px;
     display: inline-flex;
+}
+
+.align-action {
+    padding-left: 40%;
+}
+
+.format-text {
+    color:rgb(66, 66, 66);
+    margin-left: 25px;
+    font-size: large;
 }
